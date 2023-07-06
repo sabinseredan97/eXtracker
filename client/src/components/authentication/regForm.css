@@ -1,0 +1,16 @@
+.regContainer {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.regForm{
+    background-color: rgba(69, 69, 69, 0.2);
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+}
+
+.btn-lg {
+    align-self: center;
+    width: 120px;
+}

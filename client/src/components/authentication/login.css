@@ -1,0 +1,20 @@
+.loginContainer {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.loginForm {
+    background-color: rgba(69, 69, 69, 0.2);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-lg {
+    align-self: center;
+    width: 120px;
+}
+
+.showHidePwd{
+    height: 36.5px;
+}
