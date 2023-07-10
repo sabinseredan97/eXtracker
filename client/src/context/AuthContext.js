@@ -1,8 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
 import secureLocalStorage from "react-secure-storage";
-import axios from "axios";
-import { authorization } from "../api/axios";
-import { useQuery } from "@tanstack/react-query";
 
 const INITIAL_STATE = {
   user: JSON.parse(secureLocalStorage.getItem("user")) || null,
@@ -64,20 +61,6 @@ function AuthReducer(state, action) {
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
-  const minute = 60000;
-  const authorizeUser = useQuery({
-    queryKey: ["authorization"],
-    queryFn: authorization,
-    refetchInterval: minute * 3,
-    retry: false,
-    enabled: state.loggedIn,
-  });
-
-  if (authorizeUser.isError && state.loggedIn) {
-    logOut();
-    window.location.reload();
-  }
-
   useEffect(() => {
     function updatestate() {
       secureLocalStorage.setItem("loggedIn", JSON.stringify(state.loggedIn));
@@ -85,11 +68,6 @@ export const AuthContextProvider = ({ children }) => {
     }
     updatestate();
   }, [state.loggedIn, state.user]);
-
-  async function logOut() {
-    await axios.post("/users/logout", { withCredentials: true });
-    dispatch({ type: "LOGOUT" });
-  }
 
   return (
     <AuthContext.Provider

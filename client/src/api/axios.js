@@ -1,12 +1,13 @@
 import axios from "axios";
-import jwtInterceptor from "../interceptors/axios";
+
+axios.defaults.baseURL = "http://localhost:3001/api/";
 
 export function authorization() {
-  return jwtInterceptor.get("/users/auth").then((res) => res.data);
+  return axios.get("/users/auth").then((res) => res.data);
 }
 
 export function getUserData(username) {
-  return jwtInterceptor.get(`profile/${username}`).then((res) => res.data);
+  return axios.get(`profile/${username}`).then((res) => res.data);
 }
 
 export function getEmailVrfTkn(id, verifyTkn) {

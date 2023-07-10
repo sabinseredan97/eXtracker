@@ -11,10 +11,6 @@ const {
   emailValidator,
   resetPwdValidator,
 } = require("../middlewares/userDataValidation");
-const {
-  validateToken,
-  validateRefreshToken,
-} = require("../controllers/usersController/validateTokens");
 const { logoutUser } = require("../controllers/usersController/lgoutUser");
 const {
   verifyAccount,
@@ -27,6 +23,7 @@ const {
 } = require("../controllers/usersController/sendResetEmail");
 const { resetPwd } = require("../controllers/usersController/resetPwd");
 const { isResetTknValid } = require("../middlewares/resetPwdValidation");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   "/register",
@@ -39,15 +36,11 @@ router.post(
 
 router.post("/login", loginValidator(), loginUser);
 
-router.get("/auth", validateToken);
-
-router.get("/refresh", validateRefreshToken);
-
 router.post("/logout", logoutUser);
 
 router.get("/verify/:id/:verifyTkn", verifyAccount);
 
-router.post("/delete/:username", deleteUserAccount);
+router.post("/delete/:username", authenticateToken, deleteUserAccount);
 
 router.post("/forgot-password/sendEmail", emailValidator(), sendResetEmail);
 

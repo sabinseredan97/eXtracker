@@ -1,7 +1,6 @@
 function logoutUser(req, res) {
   try {
     res.cookie("access-token", "", { maxAge: 1 });
-    res.cookie("refresh-token", "", { maxAge: 1 });
   } catch (err) {
     return res.status(404).send(err);
   }

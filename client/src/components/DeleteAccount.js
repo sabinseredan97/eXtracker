@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { logoutUser } from "../api/axios";
-import jwtInterceptor from "../interceptors/axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ShowHidePwd from "./authentication/ShowHidePwd";
+import axios from "axios";
 
 export default function DeleteAccount() {
   const { user, dispatch } = useContext(AuthContext);
@@ -39,7 +39,7 @@ export default function DeleteAccount() {
   }
 
   async function onSubmit(data) {
-    const response = await jwtInterceptor.post(`users/delete/${user}`, data);
+    const response = await axios.post(`users/delete/${user}`, data);
     if (response.status === 204) {
       setLogout(true);
       dispatch({ type: "LOGOUT" });

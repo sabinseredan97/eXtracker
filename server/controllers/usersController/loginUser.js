@@ -33,14 +33,10 @@ async function loginUser(req, res) {
         .status(201)
         .send({ message: "An verification email was sent to your adress!" });
     }
-    const accessToken = createTokens(user, "4m", process.env.JWT_SECRETKEY);
-    const refreshToken = createTokens(user, "1d", process.env.JWT_REFRESH_KEY);
+    const accessToken = createTokens(user, "1d", process.env.JWT_SECRETKEY);
+    const day = 86400000;
     res.cookie("access-token", accessToken, {
-      maxAge: 300000,
-      httpOnly: true,
-    });
-    res.cookie("refresh-token", refreshToken, {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: day,
       httpOnly: true,
     });
     return res.status(200).send({
