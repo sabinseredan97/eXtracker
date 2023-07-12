@@ -11,11 +11,12 @@ import ShowHidePwd from "./ShowHidePwd";
 import "./login.css";
 
 export default function Login() {
-  const { loggedIn, loading, dispatch } = useContext(AuthContext);
+  const { loggedIn, setLoggedIn, setUsername } = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
   const [resendLink, setResendLink] = useState(false);
   const [disableTimer, setDisableTimer] = useState(false);
   const [timer, setTimer] = useState(0);
+  const [disabled, setDisabled] = useState(false);
 
   let navigate = useNavigate();
 
@@ -35,12 +36,12 @@ export default function Login() {
   } = useForm({ resolver: yupResolver(schema) });
 
   async function onSubmit(data) {
-    dispatch({ type: "LOGIN_START" });
     try {
       const response = await axios.post("users/login", data, {
         withCredentials: true,
       });
       if (response.status === 201) {
+        setDisabled(true);
         toast.warn("Your account is not verified yet!");
         toast.success(response.data.message);
         setResendLink(true);
@@ -50,16 +51,12 @@ export default function Login() {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.accessToken}`;
-        dispatch({
-          type: "LOGIN_SUCCESS",
-          payload: response.data.username,
-        });
+        setLoggedIn(true);
+        setUsername(response.data.username);
         toast.success(response.data.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.error);
-      dispatch({ type: "LOGIN_FAILURE", payload: error });
     }
   }
 
@@ -113,7 +110,7 @@ export default function Login() {
                 variant="primary"
                 className="btn-lg"
                 type="submit"
-                disabled={loading}
+                disabled={disabled}
               >
                 Log in
               </Button>

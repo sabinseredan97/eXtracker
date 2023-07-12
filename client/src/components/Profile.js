@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -6,12 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserData } from "../api/axios";
 
 export default function Profile() {
-  const { user } = useContext(AuthContext);
+  const { username } = useContext(AuthContext);
   let navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user-data"],
-    queryFn: () => getUserData(user),
+    queryFn: () => getUserData(username),
   });
 
   let content;
@@ -25,7 +25,7 @@ export default function Profile() {
     <>
       <div>
         <div>
-          <h1>Hello {user}</h1>
+          <h1>Hello {username}</h1>
           <h3>This is your profile page</h3>
         </div>
         {!content ? (

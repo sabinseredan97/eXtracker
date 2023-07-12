@@ -12,7 +12,7 @@ async function deleteUserAccount(req, res) {
       message: "A error occured and your account could not be deleted",
     });
   const match = await bcrypt.compare(password, user.password);
-  if (!match) return res.status(404).send({ message: "wrong password!" });
+  if (!match) return res.status(409).send({ message: "wrong password!" });
   await users.destroy({
     where: { username: username },
   });

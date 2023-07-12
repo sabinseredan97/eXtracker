@@ -1,82 +1,28 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 
 const INITIAL_STATE = {
-  user: JSON.parse(secureLocalStorage.getItem("user")) || null,
   loggedIn: JSON.parse(secureLocalStorage.getItem("loggedIn")) || false,
-  loading: false,
+  user: JSON.parse(secureLocalStorage.getItem("user")) || null,
 };
 
 export const AuthContext = createContext(INITIAL_STATE);
 
-function AuthReducer(state, action) {
-  switch (action.type) {
-    case "REGISTER_START":
-      return {
-        user: null,
-        loggedIn: false,
-        loading: true,
-      };
-    case "REGISTER_SUCCESS":
-      return {
-        user: null,
-        loggedIn: false,
-        loading: false,
-      };
-    case "REGISTER_FAILURE":
-      return {
-        user: null,
-        loggedIn: false,
-        loading: false,
-      };
-    case "LOGIN_START":
-      return {
-        user: null,
-        loggedIn: false,
-        loading: true,
-      };
-    case "LOGIN_SUCCESS":
-      return {
-        user: action.payload,
-        loggedIn: true,
-        loading: false,
-      };
-    case "LOGIN_FAILURE":
-      return {
-        user: null,
-        loggedIn: false,
-        loading: false,
-      };
-    case "LOGOUT":
-      return {
-        user: null,
-        loggedIn: false,
-        loading: false,
-      };
-    default:
-      return state;
-  }
-}
-
 export const AuthContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+  const [loggedIn, setLoggedIn] = useState(INITIAL_STATE.loggedIn);
+  const [username, setUsername] = useState(INITIAL_STATE.user);
 
   useEffect(() => {
     function updatestate() {
-      secureLocalStorage.setItem("loggedIn", JSON.stringify(state.loggedIn));
-      secureLocalStorage.setItem("user", JSON.stringify(state.user));
+      secureLocalStorage.setItem("loggedIn", JSON.stringify(loggedIn));
+      secureLocalStorage.setItem("user", JSON.stringify(username));
     }
     updatestate();
-  }, [state.loggedIn, state.user]);
+  }, [username, loggedIn]);
 
   return (
     <AuthContext.Provider
-      value={{
-        user: state.user,
-        loggedIn: state.loggedIn,
-        loading: state.loading,
-        dispatch,
-      }}
+      value={{ loggedIn, setLoggedIn, username, setUsername }}
     >
       {children}
     </AuthContext.Provider>

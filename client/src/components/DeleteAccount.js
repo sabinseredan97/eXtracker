@@ -12,7 +12,7 @@ import ShowHidePwd from "./authentication/ShowHidePwd";
 import axios from "axios";
 
 export default function DeleteAccount() {
-  const { user, dispatch } = useContext(AuthContext);
+  const { setLoggedIn, username, setUsername } = useContext(AuthContext);
   const [logout, setLogout] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   let navigate = useNavigate();
@@ -39,12 +39,16 @@ export default function DeleteAccount() {
   }
 
   async function onSubmit(data) {
-    const response = await axios.post(`users/delete/${user}`, data);
-    if (response.status === 204) {
-      setLogout(true);
-      dispatch({ type: "LOGOUT" });
+    try {
+      const response = await axios.post(`users/delete/${username}`, data);
+      if (response.status === 204) {
+        setLogout(true);
+        setLoggedIn(false);
+        setUsername(null);
+      }
+    } catch (error) {
+      toast.warn(error.response.data.message);
     }
-    toast.warn(response.response.data.message);
   }
 
   return (

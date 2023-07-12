@@ -10,8 +10,8 @@ import { Form, Button } from "react-bootstrap";
 import ShowHidePwd from "./ShowHidePwd";
 import "./regForm.css";
 
-export default function LoginForm() {
-  const { loading, loggedIn, dispatch } = useContext(AuthContext);
+export default function Registration() {
+  const { loggedIn } = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
   const [confPwdShow, setConfPwdShow] = useState(false);
   const [emailVerifyMsg, setEmailVerifyMsg] = useState("");
@@ -35,14 +35,11 @@ export default function LoginForm() {
   } = useForm({ resolver: yupResolver(schema) });
 
   async function onSubmit(data) {
-    dispatch({ type: "REGISTER_START" });
     try {
       const response = await axios.post("users/register", data);
       setEmailVerifyMsg(response.data.message);
-      dispatch({ type: "REGISTER_SUCCESS" });
     } catch (error) {
       toast.error(error.response.data.error);
-      dispatch({ type: "REGISTER_FAILURE", payload: error });
     }
   }
 
@@ -110,12 +107,7 @@ export default function LoginForm() {
               {emailVerifyMsg && (
                 <p className="text-success">{emailVerifyMsg}</p>
               )}
-              <Button
-                variant="primary"
-                type="submit"
-                className="btn-lg"
-                disabled={loading}
-              >
+              <Button variant="primary" type="submit" className="btn-lg">
                 Register
               </Button>
               <span>

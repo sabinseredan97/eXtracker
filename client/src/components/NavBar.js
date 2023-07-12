@@ -8,12 +8,14 @@ import defaultUserLogo from "../logo/defaultUserLogo.png";
 axios.defaults.withCredentials = true;
 
 export default function NavBar() {
-  const { user, loggedIn, dispatch } = useContext(AuthContext);
+  const { loggedIn, setLoggedIn, username, setUsername } =
+    useContext(AuthContext);
   let navigate = useNavigate();
 
   async function logOut() {
     await axios.post("users/logout", {});
-    dispatch({ type: "LOGOUT" });
+    setLoggedIn(false);
+    setUsername(null);
     navigate("/login");
   }
 
@@ -31,7 +33,7 @@ export default function NavBar() {
                 <Nav className="me-auto">
                   <NavDropdown
                     id="nav-dropdown-dark collasible-nav-dropdown"
-                    title={user}
+                    title={username}
                     menuVariant="dark"
                   >
                     <NavDropdown.Item href="#action/3.1">
@@ -44,7 +46,7 @@ export default function NavBar() {
                       Something
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href={`/profile/${user}`}>
+                    <NavDropdown.Item href={`/profile/${username}`}>
                       Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
@@ -57,7 +59,7 @@ export default function NavBar() {
                   <img
                     className="userAvatar"
                     src={defaultUserLogo}
-                    alt={user}
+                    alt={username}
                   />
                 </Nav.Item>
               </Navbar.Collapse>
