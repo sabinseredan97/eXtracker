@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
-import { logoutUser } from "../api/axios";
+import { logoutUser } from "../../api/axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import ShowHidePwd from "./authentication/ShowHidePwd";
+import ShowHidePwd from "../authentication/ShowHidePwd";
 import axios from "axios";
 
 export default function DeleteAccount() {

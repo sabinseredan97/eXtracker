@@ -36,8 +36,8 @@ export default function NavBar() {
                     title={username}
                     menuVariant="dark"
                   >
-                    <NavDropdown.Item href="#action/3.1">
-                      Action
+                    <NavDropdown.Item href="/profile/add-expenses">
+                      Add expenses
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">
                       Another action

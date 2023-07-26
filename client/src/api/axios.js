@@ -11,5 +11,9 @@ export function getEmailVrfTkn(id, verifyTkn) {
 }
 
 export function logoutUser() {
-  return axios.post("/users/logout").then((res) => res.data);
+  return axios.post("users/logout").then((res) => res.data);
+}
+
+export function getCategories() {
+  return axios.get("profile/categories").then((res) => res.data);
 }

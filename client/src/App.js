@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home";
 import Login from "./components/authentication/Login";
 import Registration from "./components/authentication/Registration";
-import Profile from "./components/Profile";
+import Profile from "./components/profie/Profile";
 import RootLayout from "./layouts/RootLayout";
 import PrivateRoute from "./components/authentication/PrivateRoute";
 import {
@@ -13,9 +13,10 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import EmailVerify from "./components/authentication/EmailVerify";
-import DeleteAccount from "./components/DeleteAccount";
+import DeleteAccount from "./components/profie/DeleteAccount";
 import ResetPassword from "./components/pwd-recovery/ResetPassword";
 import ForgotPassword from "./components/pwd-recovery/ForgotPassword";
+import AddExpenses from "./components/profie/AddExpenses";
 
 function App() {
   const router = createBrowserRouter(
@@ -34,6 +35,14 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile/add-expenses"
+          element={
+            <PrivateRoute>
+              <AddExpenses />
             </PrivateRoute>
           }
         />

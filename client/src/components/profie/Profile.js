@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getUserData } from "../api/axios";
+import { getUserData } from "../../api/axios";
 
 export default function Profile() {
   const { username } = useContext(AuthContext);

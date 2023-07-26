@@ -49,6 +49,9 @@ db.Sequelize = Sequelize;
 
 db.users = require("./users")(sequelize, DataTypes);
 db.emailVerifyTkn = require("./emailVerifyTkn")(sequelize, DataTypes);
+db.resetPwdTkn = require("./resetPwdTkn")(sequelize, DataTypes);
+db.categories = require("./categories")(sequelize, DataTypes);
+db.products = require("./products")(sequelize, DataTypes);
 
 db.users.hasOne(db.emailVerifyTkn, {
   foreignKey: "userId",
@@ -59,6 +62,16 @@ db.users.hasOne(db.resetPwdTkn, {
   foreignKey: "userId",
 });
 db.resetPwdTkn.belongsTo(db.users);
+
+db.users.hasMany(db.products, {
+  foreignKey: "userId",
+});
+db.products.belongsTo(db.users);
+
+db.categories.hasMany(db.products, {
+  foreignKey: "categoryId",
+});
+db.products.belongsTo(db.categories);
 
 //await db.emailVerifyTkn.sync({ alter: true });
 
