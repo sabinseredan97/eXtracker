@@ -25,7 +25,7 @@ export default function NavBar() {
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
             <Navbar.Brand as={Link} to="/">
-              Personal Project
+              eXtracker
             </Navbar.Brand>
             <Nav className="top-0 end-0">
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
