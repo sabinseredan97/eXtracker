@@ -19,7 +19,6 @@ async function addProduct(req, res) {
       message: "Product added successfully!",
     });
   } catch (error) {
-    console.log(error);
     return res
       .status(400)
       .send({ error: "The product wasn't added due to a error!" });
