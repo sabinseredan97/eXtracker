@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getCategories } from "../../api/axios";
+import { categories } from "../../api/axios";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Form } from "react-bootstrap";
 
 export default function Categories() {
   const [value, setValue] = useState("");
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => getCategories(),
+    queryFn: () => categories(),
   });
 
   let content;
@@ -20,31 +21,36 @@ export default function Categories() {
   }
 
   const handleSelect = (e) => {
-    console.log(e);
     setValue(e);
   };
 
   return (
     <>
       {!content ? (
-        <div>
-          <DropdownButton
-            alignRight
-            title="Dropdown right"
-            id="dropdown-menu-align-right"
-            onSelect={handleSelect}
-          >
-            {data.map((category) => {
-              return (
-                <Dropdown.Item eventKey={category.name}>
-                  {category.name}
-                </Dropdown.Item>
-              );
-            })}
-            <Dropdown.Divider />
-            <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-          </DropdownButton>
-        </div>
+        <Form>
+          <div>
+            <div className="d-flex flex-row mb-3">
+              <div className="p-2">
+                <DropdownButton
+                  title="Category"
+                  className="dropdown-menu-align-right"
+                  onSelect={handleSelect}
+                >
+                  {data.allCategories.map((category) => {
+                    return (
+                      <Dropdown.Item key={category.id} eventKey={category.name}>
+                        {category.name}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </DropdownButton>
+              </div>
+              <div className="p-2">
+                <Form.Control type="text" size="lg" disabled value={value} />
+              </div>
+            </div>
+          </div>
+        </Form>
       ) : (
         content
       )}

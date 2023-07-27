@@ -16,7 +16,7 @@ import EmailVerify from "./components/authentication/EmailVerify";
 import DeleteAccount from "./components/profie/DeleteAccount";
 import ResetPassword from "./components/pwd-recovery/ResetPassword";
 import ForgotPassword from "./components/pwd-recovery/ForgotPassword";
-import AddExpenses from "./components/profie/AddExpenses";
+import AddProduct from "./components/profie/AddProduct";
 
 function App() {
   const router = createBrowserRouter(
@@ -42,7 +42,7 @@ function App() {
           path="/profile/add-expenses"
           element={
             <PrivateRoute>
-              <AddExpenses />
+              <AddProduct />
             </PrivateRoute>
           }
         />
