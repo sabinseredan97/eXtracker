@@ -27,6 +27,8 @@ export default function AddProduct() {
         withCredentials: true,
       });
       toast.success(response.data.message);
+      document.getElementById("product").value = "";
+      document.getElementById("price").value = "";
     } catch (error) {
       toast.error(error.response.data.error);
     }
@@ -47,7 +49,7 @@ export default function AddProduct() {
   return (
     <div>
       {!content ? (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form id="productForm" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className="d-flex flex-row mb-3">
               <div className="p-2 mt-3">
@@ -64,6 +66,7 @@ export default function AddProduct() {
               <div className="d-flex flex-row mb-3">
                 <div className="p-2 mt-3">
                   <Form.Control
+                    id="product"
                     type="text"
                     size="lg"
                     placeholder="product"
@@ -73,6 +76,7 @@ export default function AddProduct() {
                 </div>
                 <div className="p-2 mt-3">
                   <Form.Control
+                    id="price"
                     type="text"
                     size="lg"
                     placeholder="price"
