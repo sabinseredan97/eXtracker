@@ -7,7 +7,6 @@ async function addProduct(req, res) {
     const user = await users.findOne({
       where: { username: req.user.username },
     });
-
     await products.create({
       name: product,
       price: price,

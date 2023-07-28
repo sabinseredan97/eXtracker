@@ -8,10 +8,24 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export default function AddProduct() {
+  let patternTwoDigisAfterComma =
+    /^((?=[^0])[\D]*[0-9]){1,7}[\D]*$|^\d{1}(\.\d{2})$|^((?=[^0])\d{2,7}(\.\d{2}))$/;
   const schema = yup.object().shape({
     category: yup.string().required("Category is required!"),
     product: yup.string().max(25).required("Product is required!"),
-    price: yup.string().max(25).required("Price is rquired"),
+    price: yup
+      .string()
+      .test(
+        "is-decimal",
+        "Price format: 25, 25.25, 0.25 Max: 9999999.99",
+        (val) => {
+          if (val !== undefined) {
+            return patternTwoDigisAfterComma.test(val);
+          }
+          return true;
+        }
+      )
+      .required("Price is rquired"),
     currency: yup.string().required("Category is required!"),
   });
 
