@@ -98,8 +98,7 @@ function productValidator() {
     check("price")
       .notEmpty()
       .withMessage("price is required")
-      .isDecimal()
-      .isLength({ min: minPrice, max: maxPrice }),
+      .isDecimal({ min: minPrice, max: maxPrice }),
     check("currency").notEmpty().withMessage("currency is required"),
   ];
 }
