@@ -1,6 +1,15 @@
 const { products, categories, users } = require("../../models");
+const { resultsValidator } = require("../../middlewares/userDataValidation");
 
 async function addProduct(req, res) {
+  const errors = resultsValidator(req);
+  if (errors.length > 0) {
+    return res.status(400).send({
+      method: req.method,
+      status: res.statusCode,
+      error: errors,
+    });
+  }
   try {
     const { category, product, price, currency } = req.body;
     const categTable = await categories.findOne({ where: { name: category } });

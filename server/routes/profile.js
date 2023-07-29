@@ -6,11 +6,12 @@ const {
   getCategories,
 } = require("../controllers/profileController/getCategories");
 const { addProduct } = require("../controllers/profileController/addProduct");
+const { productValidator } = require("../middlewares/userDataValidation");
 
 router.get("/user-data/:username", authenticateToken, getUserData);
 
 router.get("/categories", authenticateToken, getCategories);
 
-router.post("/add/product", authenticateToken, addProduct);
+router.post("/add/product", authenticateToken, productValidator(), addProduct);
 
 module.exports = router;

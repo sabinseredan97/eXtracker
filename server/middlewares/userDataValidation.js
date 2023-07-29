@@ -89,6 +89,21 @@ function emailValidator() {
   return [check("email").isEmail()];
 }
 
+function productValidator() {
+  let minPrice = 0.01;
+  let maxPrice = 9999999.99;
+  return [
+    check("category").notEmpty().withMessage("category is required"),
+    check("product").notEmpty().withMessage("product is required"),
+    check("price")
+      .notEmpty()
+      .withMessage("price is required")
+      .isDecimal()
+      .isLength({ min: minPrice, max: maxPrice }),
+    check("currency").notEmpty().withMessage("currency is required"),
+  ];
+}
+
 module.exports = {
   verifyUsername,
   verifyEmail,
@@ -98,4 +113,5 @@ module.exports = {
   resultsValidator,
   resetPwdValidator,
   emailValidator,
+  productValidator,
 };
