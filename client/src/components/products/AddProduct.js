@@ -28,7 +28,7 @@ export default function AddProduct() {
 
   async function onSubmit(data) {
     try {
-      const response = await axios.post("products/add/product", data, {
+      const response = await axios.post("profile/add/product", data, {
         withCredentials: true,
       });
       toast.success(response.data.message);

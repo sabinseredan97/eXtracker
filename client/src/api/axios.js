@@ -15,5 +15,5 @@ export function logoutUser() {
 }
 
 export function categories() {
-  return axios.get("products/categories").then((res) => res.data);
+  return axios.get("profile/categories").then((res) => res.data);
 }
