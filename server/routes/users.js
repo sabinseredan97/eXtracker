@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { registerUser } = require("../controllers/usersController/registerUser");
-const { loginUser } = require("../controllers/usersController/loginUser");
+const {
+  registerUser,
+  loginUser,
+  logoutUser,
+  verifyAccount,
+  deleteUserAccount,
+  sendResetEmail,
+  resetPwd,
+} = require("../controllers/usersController");
 const {
   verifyEmail,
   verifyUsername,
@@ -11,17 +18,6 @@ const {
   emailValidator,
   resetPwdValidator,
 } = require("../middlewares/userDataValidation");
-const { logoutUser } = require("../controllers/usersController/lgoutUser");
-const {
-  verifyAccount,
-} = require("../controllers/usersController/accVerification");
-const {
-  deleteUserAccount,
-} = require("../controllers/usersController/deleteAccount");
-const {
-  sendResetEmail,
-} = require("../controllers/usersController/sendResetEmail");
-const { resetPwd } = require("../controllers/usersController/resetPwd");
 const { isResetTknValid } = require("../middlewares/resetPwdValidation");
 const { authenticateToken } = require("../middlewares/tokenAuth");
 

@@ -1,5 +1,24 @@
-const { products, categories, users } = require("../../models");
-const { resultsValidator } = require("../../middlewares/userDataValidation");
+const { users, categories, products } = require("../models");
+const { resultsValidator } = require("../middlewares/userDataValidation");
+
+async function getUserData(req, res) {
+  const { username } = req.params;
+  const user = await users.findOne({ where: { username: username } });
+  return res.status(200).send({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    verified: user.verified,
+    createdAt: user.createdAt,
+  });
+}
+
+async function getCategories(req, res) {
+  const allCategories = await categories.findAll();
+  return res.status(200).send({
+    allCategories,
+  });
+}
 
 async function addProduct(req, res) {
   const errors = resultsValidator(req);
@@ -33,4 +52,4 @@ async function addProduct(req, res) {
   }
 }
 
-module.exports = { addProduct };
+module.exports = { getUserData, getCategories, addProduct };
