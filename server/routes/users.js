@@ -8,6 +8,7 @@ const {
   deleteUserAccount,
   sendResetEmail,
   resetPwd,
+  getUserData,
 } = require("../controllers/usersController");
 const {
   verifyEmail,
@@ -46,5 +47,7 @@ router.put(
   resetPwdValidator(),
   resetPwd
 );
+
+router.get("/data/:username", authenticateToken, getUserData);
 
 module.exports = router;

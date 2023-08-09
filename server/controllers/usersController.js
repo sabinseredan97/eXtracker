@@ -1,4 +1,4 @@
-const { users, emailVerifyTkn, resetPwdTkn } = require("../models");
+const { users, emailVerifyTkn, resetPwdTkn, products } = require("../models");
 const bcrypt = require("bcrypt");
 const { sendUserVerifyEmail } = require("../middlewares/sendUserVerifyEmail");
 const { resultsValidator } = require("../middlewares/userDataValidation");
@@ -129,6 +129,7 @@ async function deleteUserAccount(req, res) {
     });
   const match = await bcrypt.compare(password, user.password);
   if (!match) return res.status(409).send({ message: "wrong password!" });
+  await products.destroy({ where: { userId: user.id } });
   await users.destroy({
     where: { username: username },
   });
@@ -198,6 +199,18 @@ async function resetPwd(req, res) {
   }
 }
 
+async function getUserData(req, res) {
+  const { username } = req.params;
+  const user = await users.findOne({ where: { username: username } });
+  return res.status(200).send({
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    verified: user.verified,
+    createdAt: user.createdAt,
+  });
+}
+
 module.exports = {
   registerUser,
   loginUser,
@@ -206,4 +219,5 @@ module.exports = {
   deleteUserAccount,
   sendResetEmail,
   resetPwd,
+  getUserData,
 };

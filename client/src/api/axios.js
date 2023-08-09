@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3001/api/";
 
 export function getUserData(username) {
-  return axios.get(`profile/user-data/${username}`).then((res) => res.data);
+  return axios.get(`users/data/${username}`).then((res) => res.data);
 }
 
 export function getEmailVrfTkn(id, verifyTkn) {
