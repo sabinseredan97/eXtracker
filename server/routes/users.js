@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const {
-  registerUser,
-  loginUser,
+  register,
+  login,
   logoutUser,
   verifyAccount,
   deleteUserAccount,
@@ -28,10 +28,10 @@ router.post(
   verifyIfUserExits,
   verifyUsername,
   verifyEmail,
-  registerUser
+  register
 );
 
-router.post("/login", loginValidator(), loginUser);
+router.post("/login", loginValidator(), login);
 
 router.post("/logout", logoutUser);
 

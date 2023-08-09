@@ -6,7 +6,7 @@ const { createTokens } = require("../middlewares/createToken");
 const { Op } = require("sequelize");
 const { sendUserResetEmail } = require("../middlewares/sendUserVerifyEmail");
 
-async function registerUser(req, res) {
+async function register(req, res) {
   const errors = resultsValidator(req);
   if (errors.length > 0) {
     return res.status(400).send({
@@ -16,7 +16,6 @@ async function registerUser(req, res) {
     });
   }
   const { username, email, password } = req.body;
-
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     await users.create({
@@ -34,7 +33,7 @@ async function registerUser(req, res) {
   }
 }
 
-async function loginUser(req, res) {
+async function login(req, res) {
   const errors = resultsValidator(req);
   if (errors.length > 0) {
     return res.status(400).send({
@@ -212,8 +211,8 @@ async function getUserData(req, res) {
 }
 
 module.exports = {
-  registerUser,
-  loginUser,
+  register,
+  login,
   logoutUser,
   verifyAccount,
   deleteUserAccount,
