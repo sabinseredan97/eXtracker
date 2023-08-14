@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   getCategories,
   addProduct,
-} = require("../controllers/profileController");
+} = require("../controllers/productsController");
 const { authenticateToken } = require("../middlewares/tokenAuth");
 const { productValidator } = require("../middlewares/userDataValidation");
 
