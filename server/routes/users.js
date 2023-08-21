@@ -9,7 +9,7 @@ const {
   sendResetEmail,
   resetPwd,
   getUserData,
-} = require("../controllers/usersController");
+} = require("../controllers/users");
 const {
   verifyEmail,
   verifyUsername,

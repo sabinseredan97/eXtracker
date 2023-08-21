@@ -20,7 +20,7 @@ export default function NavBar() {
   }
 
   return (
-    <div>
+    <div className="sticky-top">
       {loggedIn && (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
@@ -39,8 +39,8 @@ export default function NavBar() {
                     <NavDropdown.Item href="/profile/add-expenses">
                       Add expenses
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">
-                      Another action
+                    <NavDropdown.Item href="/profile/expenses">
+                      My expenses
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.3">
                       Something

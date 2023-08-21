@@ -17,3 +17,15 @@ export function logoutUser() {
 export function categories() {
   return axios.get("products/categories").then((res) => res.data);
 }
+
+export function getProducts(order, column, startDate, endDate) {
+  return axios
+    .get(`products/get-products/${order}/${column}/${startDate}/${endDate}`)
+    .then((res) => res.data);
+}
+
+export function getTotalExpenses(startDate, endDate) {
+  return axios
+    .get(`products/total-expenses/${startDate}/${endDate}`)
+    .then((res) => res.data);
+}

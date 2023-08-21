@@ -1,5 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-datepicker/dist/react-datepicker.css";
 import Home from "./components/Home";
 import Login from "./components/authentication/Login";
 import Registration from "./components/authentication/Registration";
@@ -17,6 +18,8 @@ import DeleteAccount from "./components/profile/DeleteAccount";
 import ResetPassword from "./components/pwd-recovery/ResetPassword";
 import ForgotPassword from "./components/pwd-recovery/ForgotPassword";
 import AddProduct from "./components/products/AddProduct";
+import ShowProducts from "./components/products/ShowProducts";
+import { CategoriesProvider } from "./context/CategoriesContext";
 
 function App() {
   const router = createBrowserRouter(
@@ -41,9 +44,21 @@ function App() {
         <Route
           path="/profile/add-expenses"
           element={
-            <PrivateRoute>
-              <AddProduct />
-            </PrivateRoute>
+            <CategoriesProvider>
+              <PrivateRoute>
+                <AddProduct />
+              </PrivateRoute>
+            </CategoriesProvider>
+          }
+        />
+        <Route
+          path="/profile/expenses"
+          element={
+            <CategoriesProvider>
+              <PrivateRoute>
+                <ShowProducts />
+              </PrivateRoute>
+            </CategoriesProvider>
           }
         />
         <Route path="/login" element={<Login />} />
