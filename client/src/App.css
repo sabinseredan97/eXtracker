@@ -18,3 +18,10 @@
   position: relative;
   float: right;
 }
+
+.sortTable {
+  background-color: lightgray;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 6%;
+}

@@ -5,7 +5,7 @@ export default function SortOptions(props) {
   let showDefaultOption = props.defaultOption;
   return (
     <Form.Select
-      size="lg"
+      style={{ width: "10rem" }}
       value={props.value}
       onChange={(e) => props.setOption(e.target.value)}
     >

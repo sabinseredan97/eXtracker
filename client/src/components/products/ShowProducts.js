@@ -7,12 +7,12 @@ import ItemsList from "./ItemsList";
 import SortOptions from "./SortOptions";
 import { CategoriesContext } from "../../context/CategoriesContext";
 import { useContext } from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup, Table } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 export default function ShowProductsSorted() {
   const { itemsCategories } = useContext(CategoriesContext);
-  const [order, setOrder] = useState("ASC");
+  const [order, setOrder] = useState("DESC");
   const [column, setColumn] = useState("createdAt");
   const [category, setCategory] = useState("");
   const [totalExpPrice, setTotalExpPrice] = useState([]);
@@ -57,7 +57,6 @@ export default function ShowProductsSorted() {
       refetchExp();
       refetchPrices();
     } catch (error) {
-      console.log(error);
       toast.error(error.data.message);
     }
   }
@@ -78,91 +77,92 @@ export default function ShowProductsSorted() {
     <>
       {!content ? (
         <>
-          <div className="d-flex flex-row mb-3">
-            <p className="fs-5 mt-4 ms-2">Order</p>
-            <div className="p-2 mt-3">
-              <SortOptions
-                defaultOption={false}
-                options={[
-                  { value: "ASC", name: "Ascending" },
-                  { value: "DESC", name: "Descending" },
-                ]}
-                value={order}
-                setOption={setOrder}
-              />
-            </div>
-            <p className="fs-5 mt-4 ms-2">Sort by</p>
-            <div className="p-2 mt-3">
-              <SortOptions
-                defaultOption={false}
-                options={[
-                  { value: "createdAt", name: "Date" },
-                  { value: "price", name: "Price" },
-                ]}
-                value={column}
-                setOption={setColumn}
-              />
-            </div>
-            <p className="fs-5 mt-4 ms-2">Category</p>
-            <div className="p-2 mt-3">
-              <SortOptions
-                defaultOption={true}
-                defaultName="All Categories"
-                defaultKey="catDefault"
-                options={itemsCategories.allCategories.map((category) => {
-                  return { value: category.name, name: category.name };
-                })}
-                value={category}
-                setOption={setCategory}
-              />
-            </div>
-            <div className="p-2 mt-3">
-              <span>From: </span>
-              <DatePicker
-                selectsStart
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                startDate={startDate}
-                maxDate={yesterdayDate}
-              />
-              <span> to: </span>
-              <DatePicker
-                selectsEnd
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                endDate={endDate}
-                startDate={startDate}
-                minDate={startDate}
-                maxDate={todayDate}
-              />
-            </div>
-            <div className="position-absolute end-0">
-              {totalExpPrice[0] && (
-                <Card style={{ width: "10rem" }}>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item>Total spent</ListGroup.Item>
-                    <ListGroup.Item>
-                      {isPricesError
-                        ? pricesError.message
-                        : totalExpPrice[0].totalPrice}{" "}
-                      ron
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Card>
-              )}
-            </div>
-          </div>
+          <section className="sortTable">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>
+                    Order
+                    <SortOptions
+                      defaultOption={false}
+                      options={[
+                        { value: "ASC", name: "Ascending" },
+                        { value: "DESC", name: "Descending" },
+                      ]}
+                      value={order}
+                      setOption={setOrder}
+                    />
+                  </th>
+                  <th>
+                    Category
+                    <SortOptions
+                      defaultOption={true}
+                      defaultName="All Categories"
+                      defaultKey="catDefault"
+                      options={itemsCategories.allCategories.map((category) => {
+                        return { value: category.name, name: category.name };
+                      })}
+                      value={category}
+                      setOption={setCategory}
+                    />
+                  </th>
+                  <th>
+                    Sort by
+                    <SortOptions
+                      defaultOption={false}
+                      options={[
+                        { value: "createdAt", name: "Date" },
+                        { value: "price", name: "Price" },
+                      ]}
+                      value={column}
+                      setOption={setColumn}
+                    />
+                  </th>
+                  <th>
+                    <span>From: </span>
+                    <DatePicker
+                      selectsStart
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      startDate={startDate}
+                      maxDate={yesterdayDate}
+                    />
+                    <span> to: </span>
+                    <DatePicker
+                      selectsEnd
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                      endDate={endDate}
+                      startDate={startDate}
+                      minDate={startDate}
+                      maxDate={todayDate}
+                    />
+                  </th>
+                  <th>
+                    {totalExpPrice[0] && (
+                      <Card style={{ width: "10rem" }}>
+                        <ListGroup variant="flush">
+                          <ListGroup.Item>Total spent</ListGroup.Item>
+                          <ListGroup.Item>
+                            {isPricesError
+                              ? pricesError.message
+                              : totalExpPrice[0].totalPrice}{" "}
+                            ron
+                          </ListGroup.Item>
+                        </ListGroup>
+                      </Card>
+                    )}
+                  </th>
+                </tr>
+              </thead>
+            </Table>
+          </section>
           <section>
-            {!category ? (
-              <ItemsList items={productsList} delete={deleteProduct} />
-            ) : (
-              <ItemsList
-                items={productsList.filter(
-                  (product) => category === product.category.name
-                )}
-                delete={deleteProduct}
-              />
-            )}
+            <ItemsList
+              items={productsList}
+              category={category}
+              delete={deleteProduct}
+            />
           </section>
         </>
       ) : (
