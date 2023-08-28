@@ -103,10 +103,32 @@ async function getTotalExpenses(req, res) {
   }
 }
 
+async function periodExpenses(req, res) {
+  const { startDate, endDate } = req.params;
+  try {
+    const periodExpenses = await products.findAll({
+      attributes: [
+        [Sequelize.fn("date", Sequelize.col("createdat")), "date"],
+        [Sequelize.fn("sum", Sequelize.col("price")), "totalPrice"],
+      ],
+      group: ["date"],
+      where: {
+        userId: req.user.id,
+        createdAt: { [Op.between]: [startDate, endDate] },
+      },
+    });
+    res.status(200).send(periodExpenses);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ message: "there was a error" });
+  }
+}
+
 module.exports = {
   getCategories,
   addProduct,
   getProducts,
   deleteProduct,
   getTotalExpenses,
+  periodExpenses,
 };

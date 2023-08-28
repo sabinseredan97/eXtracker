@@ -6,6 +6,7 @@ const {
   getProducts,
   deleteProduct,
   getTotalExpenses,
+  periodExpenses,
 } = require("../controllers/products");
 const { authenticateToken } = require("../middlewares/tokenAuth");
 const { productValidator } = require("../middlewares/userDataValidation");
@@ -26,6 +27,12 @@ router.get(
   "/total-expenses/:startDate/:endDate",
   authenticateToken,
   getTotalExpenses
+);
+
+router.get(
+  "/period-expenses/:startDate/:endDate",
+  authenticateToken,
+  periodExpenses
 );
 
 module.exports = router;

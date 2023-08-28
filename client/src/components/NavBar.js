@@ -42,8 +42,8 @@ export default function NavBar() {
                     <NavDropdown.Item href="/profile/expenses">
                       My expenses
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">
-                      Something
+                    <NavDropdown.Item href="/profile/expenses/graph">
+                      Graph
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href={`/profile/${username}`}>

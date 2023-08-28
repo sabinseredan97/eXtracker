@@ -20,6 +20,7 @@ import ForgotPassword from "./components/pwd-recovery/ForgotPassword";
 import AddProduct from "./components/products/AddProduct";
 import ShowProducts from "./components/products/ShowProducts";
 import { CategoriesProvider } from "./context/CategoriesContext";
+import LineChart from "./components/LineChart";
 
 function App() {
   const router = createBrowserRouter(
@@ -57,6 +58,16 @@ function App() {
             <CategoriesProvider>
               <PrivateRoute>
                 <ShowProducts />
+              </PrivateRoute>
+            </CategoriesProvider>
+          }
+        />
+        <Route
+          path="/profile/expenses/graph"
+          element={
+            <CategoriesProvider>
+              <PrivateRoute>
+                <LineChart />
               </PrivateRoute>
             </CategoriesProvider>
           }

@@ -29,3 +29,9 @@ export function getTotalExpenses(startDate, endDate) {
     .get(`products/total-expenses/${startDate}/${endDate}`)
     .then((res) => res.data);
 }
+
+export function getPeriosExp(startDate, endDate) {
+  return axios
+    .get(`products/period-expenses/${startDate}/${endDate}`)
+    .then((res) => res.data);
+}
