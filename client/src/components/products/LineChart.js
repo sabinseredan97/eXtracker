@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getPeriosExp } from "../api/axios";
+import { getPeriosExp } from "../../api/axios";
 import DatePicker from "react-datepicker";
 import {
   Chart as ChartJS,
@@ -34,7 +34,7 @@ export default function LineChart() {
   const yesterdayDate = new Date(new Date().setDate(todayDate.getDate() - 1));
 
   const {
-    data: periodexpData,
+    data: periodExpData,
     isLoading,
     isError,
     error,
@@ -65,25 +65,27 @@ export default function LineChart() {
       },
       title: {
         display: true,
-        text: `Money evolution in the ${startDate} - ${endDate} time period`,
+        text: `Money spent in the ${startDate} - ${endDate} time period`,
       },
     },
   };
 
   useEffect(() => {
-    if (periodexpData) {
+    if (periodExpData) {
       setData({
-        labels: periodexpData.map((item) => item.date),
+        labels: periodExpData.map((item) => item.date),
         datasets: [
           {
             fill: true,
             label: "money spent",
-            data: periodexpData.map((item) => item.totalPrice),
+            data: periodExpData.map((item) => item.totalPrice),
+            backgroundColor: "rgb(0,255,0)",
+            borderColor: "rgb(0,255,0)",
           },
         ],
       });
     }
-  }, [periodexpData]);
+  }, [periodExpData]);
 
   return (
     <>

@@ -112,6 +112,7 @@ async function periodExpenses(req, res) {
         [Sequelize.fn("sum", Sequelize.col("price")), "totalPrice"],
       ],
       group: ["date"],
+      order: [["date", "ASC"]],
       where: {
         userId: req.user.id,
         createdAt: { [Op.between]: [startDate, endDate] },
@@ -119,7 +120,6 @@ async function periodExpenses(req, res) {
     });
     res.status(200).send(periodExpenses);
   } catch (error) {
-    console.log(error);
     return res.status(400).send({ message: "there was a error" });
   }
 }

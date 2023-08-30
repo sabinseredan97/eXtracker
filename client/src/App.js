@@ -20,7 +20,7 @@ import ForgotPassword from "./components/pwd-recovery/ForgotPassword";
 import AddProduct from "./components/products/AddProduct";
 import ShowProducts from "./components/products/ShowProducts";
 import { CategoriesProvider } from "./context/CategoriesContext";
-import LineChart from "./components/LineChart";
+import LineChart from "./components/products/LineChart";
 
 function App() {
   const router = createBrowserRouter(
