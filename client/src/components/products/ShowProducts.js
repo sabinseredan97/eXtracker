@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts, getTotalExpenses } from "../../api/axios";
 import { toast } from "react-toastify";
@@ -6,9 +6,9 @@ import axios from "axios";
 import ItemsList from "./ItemsList";
 import SortOptions from "./SortOptions";
 import { CategoriesContext } from "../../context/CategoriesContext";
-import { useContext } from "react";
-import { Card, ListGroup, Table } from "react-bootstrap";
+import { Card, ListGroup, Table, Spinner, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+import video1 from "../../videos/video-1.mp4";
 
 export default function ShowProductsSorted() {
   const { itemsCategories } = useContext(CategoriesContext);
@@ -22,6 +22,7 @@ export default function ShowProductsSorted() {
   );
   const todayDate = new Date();
   const yesterdayDate = new Date(new Date().setDate(todayDate.getDate() - 1));
+  const [hideSort, setHideSort] = useState(true);
 
   const {
     data: productsList,
@@ -46,7 +47,13 @@ export default function ShowProductsSorted() {
 
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = (
+      <div className="mt-5 text-center">
+        <Spinner animation="border" role="status">
+          <span>Loading...</span>
+        </Spinner>
+      </div>
+    );
   } else if (isError) {
     content = <p>{error.message}</p>;
   }
@@ -73,15 +80,35 @@ export default function ShowProductsSorted() {
     }
   }, [category, pricesList]);
 
+  function showSort() {
+    setHideSort((current) => !current);
+  }
+
   return (
     <>
       {!content ? (
-        <>
-          <section className="sortTable">
-            <Table striped bordered hover>
+        <div>
+          <video src={video1} autoPlay loop muted />
+          <section className="sortTable text-center">
+            <Button
+              className="d-md-none d-lg-none d-xl-none mt-3 mb-1"
+              variant="outline-light"
+              onClick={showSort}
+            >
+              {hideSort ? "show" : "hide"}
+            </Button>
+            <Table
+              striped
+              bordered
+              className={
+                hideSort
+                  ? "text-white d-none d-md-block d-lg-block"
+                  : "text-white"
+              }
+            >
               <thead>
-                <tr>
-                  <th>
+                <tr className="d-flex flex-wrap">
+                  <th className="mx-auto">
                     Order
                     <SortOptions
                       defaultOption={false}
@@ -93,7 +120,7 @@ export default function ShowProductsSorted() {
                       setOption={setOrder}
                     />
                   </th>
-                  <th>
+                  <th className="mx-auto">
                     Category
                     <SortOptions
                       defaultOption={true}
@@ -106,7 +133,7 @@ export default function ShowProductsSorted() {
                       setOption={setCategory}
                     />
                   </th>
-                  <th>
+                  <th className="mx-auto">
                     Sort by
                     <SortOptions
                       defaultOption={false}
@@ -118,7 +145,7 @@ export default function ShowProductsSorted() {
                       setOption={setColumn}
                     />
                   </th>
-                  <th>
+                  <th className="mx-auto d-flex flex-wrap">
                     <span>From: </span>
                     <DatePicker
                       selectsStart
@@ -138,7 +165,7 @@ export default function ShowProductsSorted() {
                       maxDate={todayDate}
                     />
                   </th>
-                  <th>
+                  <th className="mx-auto">
                     {totalExpPrice[0] && (
                       <Card style={{ width: "10rem" }}>
                         <ListGroup variant="flush">
@@ -164,7 +191,7 @@ export default function ShowProductsSorted() {
               delete={deleteProduct}
             />
           </section>
-        </>
+        </div>
       ) : (
         content
       )}

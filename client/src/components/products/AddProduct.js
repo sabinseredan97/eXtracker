@@ -1,4 +1,4 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Card } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { CategoriesContext } from "../../context/CategoriesContext";
 import { useContext } from "react";
+import appBackground2 from "../../images/app-background-2.jpg";
 
 export default function AddProduct() {
   const { itemsCategories } = useContext(CategoriesContext);
@@ -42,12 +43,26 @@ export default function AddProduct() {
   }
 
   return (
-    <div>
+    <div
+      className="text-center"
+      style={{
+        backgroundImage: `url(${appBackground2})`,
+        height: "100vh",
+        width: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
       {itemsCategories && (
-        <Form id="productForm" onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <div className="d-flex flex-row mb-3">
-              <div className="p-2 mt-3">
+        <Card style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+          <Card.Header className="text-white">Add expenses</Card.Header>
+          <Card.Body>
+            <Form
+              id="productForm"
+              className="d-flex flex-wrap"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className="mx-auto mt-2">
                 <Form.Select size="lg" {...register("category")}>
                   {itemsCategories.allCategories.map((category) => {
                     return (
@@ -58,40 +73,42 @@ export default function AddProduct() {
                   })}
                 </Form.Select>
               </div>
-              <div className="d-flex flex-row mb-3">
-                <div className="p-2 mt-3">
-                  <Form.Control
-                    id="product"
-                    type="text"
-                    size="lg"
-                    placeholder="product"
-                    {...register("product")}
-                  />
-                  <p className="text-danger">{errors.product?.message}</p>
-                </div>
-                <div className="p-2 mt-3">
-                  <Form.Control
-                    id="price"
-                    type="text"
-                    size="lg"
-                    placeholder="price"
-                    {...register("price")}
-                  />
-                  <p className="text-danger">{errors.price?.message}</p>
-                </div>
-                <div className="p-2 mt-3">
-                  <Form.Select size="lg" {...register("currency")}>
-                    <option value="ron">ron</option>
-                  </Form.Select>
-                  <p className="text-danger">{errors.currency?.message}</p>
-                </div>
-                <Button variant="primary" className="btn-lg" type="submit">
-                  Add
-                </Button>
+              <div className="mx-auto mt-2">
+                <Form.Control
+                  id="product"
+                  type="text"
+                  size="lg"
+                  placeholder="product"
+                  {...register("product")}
+                />
+                <p className="text-danger">{errors.product?.message}</p>
               </div>
-            </div>
-          </div>
-        </Form>
+              <div className="mx-auto mt-2">
+                <Form.Control
+                  id="price"
+                  type="text"
+                  size="lg"
+                  placeholder="price"
+                  {...register("price")}
+                />
+                <p className="text-danger">{errors.price?.message}</p>
+              </div>
+              <div className="mx-auto mt-2">
+                <Form.Select size="lg" {...register("currency")}>
+                  <option value="ron">ron</option>
+                </Form.Select>
+                <p className="text-danger">{errors.currency?.message}</p>
+              </div>
+              <Button
+                variant="primary"
+                className="btn-lg mx-auto"
+                type="submit"
+              >
+                Add
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
       )}
     </div>
   );

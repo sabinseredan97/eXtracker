@@ -3,12 +3,18 @@ import trash from "../../logo/trash.svg";
 
 export default function ItemsList(props) {
   if (props.items.length === 0) {
-    return <p className="text-center">Nothing here</p>;
+    return <p className="text-center text-white">Nothing here</p>;
   }
 
   return (
     <>
-      <Table striped bordered hover>
+      <Table
+        bordered
+        className="exp-table border-light text-white"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.85)",
+        }}
+      >
         <thead>
           <tr>
             <th>Product</th>

@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Card, ListGroup, Spinner } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { getUserData } from "../../api/axios";
+import defaultUserLogo from "../../logo/defaultUserLogo.png";
+import appBackground from "../../images/app-background.jpg";
 
 export default function Profile() {
   const { username } = useContext(AuthContext);
-  let navigate = useNavigate();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user-data"],
@@ -16,36 +16,72 @@ export default function Profile() {
 
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = (
+      <div className="mt-5 text-center">
+        <Spinner animation="border" role="status">
+          <span>Loading...</span>
+        </Spinner>
+      </div>
+    );
   } else if (isError) {
     content = <p>{error.message}</p>;
   }
 
   return (
-    <>
-      <div>
-        <div>
-          <h1>Hello {username}</h1>
-          <h3>This is your profile page</h3>
-        </div>
-        {!content ? (
-          <div>
-            <h4>Your account was created at {data?.createdAt}</h4>
-            <h4>Your email: {data?.email}</h4>
-            {data?.verified && <h4>Email verified!</h4>}
-            <div>
-              <Button
-                variant="link"
-                onClick={() => navigate("/delete-account")}
+    <div
+      className="text-center"
+      style={{
+        backgroundImage: `url(${appBackground})`,
+        height: "100vh",
+        width: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
+      {!content ? (
+        <Card style={{ width: "100%", backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+          <Card.Body>
+            <Card.Title className="text-white">
+              <img
+                className="userAvatar"
+                variant="top"
+                src={defaultUserLogo}
+                alt="user"
+              />{" "}
+              {username}
+            </Card.Title>
+          </Card.Body>
+          <ListGroup className="list-group-flush">
+            <ListGroup.Item
+              className="text-white"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
+            >
+              Email: {data?.email}
+            </ListGroup.Item>
+            <ListGroup.Item
+              className="text-white"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
+            >
+              Account created at:{" "}
+              {data?.createdAt.substring(0, data?.createdAt.indexOf("T"))}
+            </ListGroup.Item>
+            {data?.verified && (
+              <ListGroup.Item
+                className="text-white"
+                style={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
               >
-                Delete your account!
-              </Button>
-            </div>
-          </div>
-        ) : (
-          content
-        )}
-      </div>
-    </>
+                Account verified
+              </ListGroup.Item>
+            )}
+          </ListGroup>
+          <Card.Body>
+            <Card.Link href="/delete-account">Delete your account</Card.Link>
+            <Card.Link href="/">Home</Card.Link>
+          </Card.Body>
+        </Card>
+      ) : (
+        content
+      )}
+    </div>
   );
 }

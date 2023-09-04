@@ -1,14 +1,49 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useRef } from "react";
+import HeroSection from "./HeroSection";
+import graphBackground from "../images/graph-background.jpeg";
+import productsBackground from "../images/products-background.jpg";
+import addProductBackground from "../images/add-product-background.jpg";
+import ExpensesCard from "./ExpensesCard";
 
 export default function Home() {
-  const { username } = useContext(AuthContext);
+  const bottomRef = useRef();
+
+  function onClick() {
+    bottomRef.current.scrollIntoView({ behavior: "smooth" });
+  }
 
   return (
-    <div>
-      <span>
-        <h3>Hi {username}</h3> <p>You are Logged-in</p>
-      </span>
-    </div>
+    <>
+      <HeroSection onClick={onClick} />
+      <section className="d-flex flex-row mb-5" ref={bottomRef}>
+        <ExpensesCard
+          width="30%"
+          bgColor="rgba(0,0,0,0.7)"
+          imageSrc={addProductBackground}
+          title="Add expenses"
+          text="You can add your expenses here"
+          path="/profile/add-expenses"
+          linkTxt="Add expenses"
+        />
+        <ExpensesCard
+          width="30%"
+          bgColor="rgba(0,0,0,0.7)"
+          imageSrc={productsBackground}
+          title="Expenses"
+          text="You can see your expenses here"
+          path="/profile/expenses"
+          linkTxt="Go to expenses"
+        />
+        <ExpensesCard
+          width="30%"
+          bgColor="rgba(0,0,0,0.7)"
+          imageSrc={graphBackground}
+          title="Graph"
+          text="You can see your expenses's graph here"
+          path="/profile/expenses/graph"
+          linkTxt="Go to graph"
+        />
+      </section>
+    </>
   );
 }

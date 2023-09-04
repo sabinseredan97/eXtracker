@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getPeriosExp } from "../../api/axios";
 import DatePicker from "react-datepicker";
+import { Spinner } from "react-bootstrap";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +14,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import appBackground from "../../images/app-background.jpg";
 
 ChartJS.register(
   CategoryScale,
@@ -45,7 +47,13 @@ export default function LineChart() {
 
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = (
+      <div className="mt-5 text-center">
+        <Spinner animation="border" role="status">
+          <span>Loading...</span>
+        </Spinner>
+      </div>
+    );
   } else if (isError) {
     content = <p>{error.message}</p>;
   }
@@ -79,8 +87,8 @@ export default function LineChart() {
             fill: true,
             label: "money spent",
             data: periodExpData.map((item) => item.totalPrice),
-            backgroundColor: "rgb(0,255,0)",
-            borderColor: "rgb(0,255,0)",
+            backgroundColor: "rgb(0, 255, 0)",
+            borderColor: "rgb(0, 255, 0)",
           },
         ],
       });
@@ -88,9 +96,17 @@ export default function LineChart() {
   }, [periodExpData]);
 
   return (
-    <>
+    <div
+      style={{
+        backgroundImage: `url(${appBackground})`,
+        height: "100vh",
+        width: "100%",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
       <section>
-        <span>From: </span>
+        <span className="text-white">From: </span>
         <DatePicker
           selectsStart
           selected={startDate}
@@ -98,7 +114,7 @@ export default function LineChart() {
           startDate={startDate}
           maxDate={yesterdayDate}
         />
-        <span> to: </span>
+        <span className="text-white"> to: </span>
         <DatePicker
           selectsEnd
           selected={endDate}
@@ -110,15 +126,19 @@ export default function LineChart() {
         />
       </section>
       {!content && data ? (
-        <>
-          <Line data={data} options={options} width={"500%"} />
+        <section
+          style={{
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+          }}
+        >
+          <Line data={data} options={options} width={"500%"} height={"210%"} />
           <p className="text-danger text-center">
             Only the dates when you spent money are shown on the graph
           </p>
-        </>
+        </section>
       ) : (
         content
       )}
-    </>
+    </div>
   );
 }
