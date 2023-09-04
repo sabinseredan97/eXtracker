@@ -54,7 +54,7 @@ export default function AddProduct() {
       }}
     >
       {itemsCategories && (
-        <Card style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+        <Card style={{ backgroundColor: "rgba(0, 0, 0, 0.85)" }}>
           <Card.Header className="text-white">Add expenses</Card.Header>
           <Card.Body>
             <Form

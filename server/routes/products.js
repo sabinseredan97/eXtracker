@@ -5,9 +5,8 @@ const {
   addProduct,
   getProducts,
   deleteProduct,
-  getTotalExpenses,
-  periodExpenses,
 } = require("../controllers/products");
+const { getTotalExpenses, periodExpenses } = require("../controllers/expenses");
 const { authenticateToken } = require("../middlewares/tokenAuth");
 const { productValidator } = require("../middlewares/userDataValidation");
 

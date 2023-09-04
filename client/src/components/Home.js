@@ -3,7 +3,7 @@ import HeroSection from "./HeroSection";
 import graphBackground from "../images/graph-background.jpeg";
 import productsBackground from "../images/products-background.jpg";
 import addProductBackground from "../images/add-product-background.jpg";
-import ExpensesCard from "./ExpensesCard";
+import ExpensesCard from "./Cards/ExpensesCard";
 
 export default function Home() {
   const bottomRef = useRef();
