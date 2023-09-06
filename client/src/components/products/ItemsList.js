@@ -11,6 +11,7 @@ export default function ItemsList(props) {
       <Table
         bordered
         className="exp-table border-light text-white"
+        responsive
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.85)",
         }}

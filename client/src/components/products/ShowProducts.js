@@ -100,6 +100,7 @@ export default function ShowProductsSorted() {
             <Table
               striped
               bordered
+              responsive
               className={
                 hideSort
                   ? "text-white d-none d-md-block d-lg-block"

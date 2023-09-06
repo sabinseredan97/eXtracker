@@ -99,7 +99,7 @@ export default function LineChart() {
     <div
       style={{
         backgroundImage: `url(${appBackground})`,
-        height: "100vh",
+        height: "93.9vh",
         width: "100%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",

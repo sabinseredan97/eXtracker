@@ -5,11 +5,12 @@ import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { CategoriesContext } from "../../context/CategoriesContext";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import appBackground2 from "../../images/app-background-2.jpg";
 
 export default function AddProduct() {
   const { itemsCategories } = useContext(CategoriesContext);
+  const isDataSending = useRef(false);
 
   const schema = yup.object().shape({
     category: yup.string().required("Category is required!"),
@@ -30,6 +31,7 @@ export default function AddProduct() {
   } = useForm({ resolver: yupResolver(schema) });
 
   async function onSubmit(data) {
+    isDataSending.current = true;
     try {
       const response = await axios.post("products/add/product", data, {
         withCredentials: true,
@@ -40,6 +42,7 @@ export default function AddProduct() {
     } catch (error) {
       toast.error(error.response.data.error);
     }
+    isDataSending.current = false;
   }
 
   return (
@@ -47,7 +50,7 @@ export default function AddProduct() {
       className="text-center"
       style={{
         backgroundImage: `url(${appBackground2})`,
-        height: "100vh",
+        height: "93.9vh",
         width: "100%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -103,6 +106,7 @@ export default function AddProduct() {
                 variant="primary"
                 className="btn-lg mx-auto"
                 type="submit"
+                disabled={isDataSending.current}
               >
                 Add
               </Button>

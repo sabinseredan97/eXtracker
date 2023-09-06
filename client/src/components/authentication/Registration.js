@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -15,6 +15,7 @@ export default function Registration() {
   const [passwordShown, setPasswordShown] = useState(false);
   const [confPwdShow, setConfPwdShow] = useState(false);
   const [emailVerifyMsg, setEmailVerifyMsg] = useState("");
+  const isDataSending = useRef(false);
 
   let navigate = useNavigate();
 
@@ -35,12 +36,14 @@ export default function Registration() {
   } = useForm({ resolver: yupResolver(schema) });
 
   async function onSubmit(data) {
+    isDataSending.current = true;
     try {
       const response = await axios.post("users/register", data);
       setEmailVerifyMsg(response.data.message);
     } catch (error) {
       toast.error(error.response.data.error);
     }
+    isDataSending.current = false;
   }
 
   return (
@@ -107,7 +110,12 @@ export default function Registration() {
               {emailVerifyMsg && (
                 <p className="text-success">{emailVerifyMsg}</p>
               )}
-              <Button variant="primary" type="submit" className="btn-lg">
+              <Button
+                variant="primary"
+                type="submit"
+                className="btn-lg"
+                disabled={isDataSending.current}
+              >
                 Register
               </Button>
               <span>

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 import { Card, ListGroup, Spinner } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { getUserData } from "../../api/axios";
@@ -32,7 +33,7 @@ export default function Profile() {
       className="text-center"
       style={{
         backgroundImage: `url(${appBackground})`,
-        height: "100vh",
+        height: "93.9vh",
         width: "100%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -74,9 +75,13 @@ export default function Profile() {
               </ListGroup.Item>
             )}
           </ListGroup>
-          <Card.Body>
-            <Card.Link href="/delete-account">Delete your account</Card.Link>
-            <Card.Link href="/">Home</Card.Link>
+          <Card.Body style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+            <Card.Link as={Link} to="/delete-account">
+              Delete your account
+            </Card.Link>
+            <Card.Link as={Link} to="/">
+              Home
+            </Card.Link>
           </Card.Body>
         </Card>
       ) : (

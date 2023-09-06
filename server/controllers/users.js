@@ -210,6 +210,10 @@ async function getUserData(req, res) {
   });
 }
 
+async function isLoggedIn(req, res) {
+  res.status(200).send(req.user.username);
+}
+
 module.exports = {
   register,
   login,
@@ -219,4 +223,5 @@ module.exports = {
   sendResetEmail,
   resetPwd,
   getUserData,
+  isLoggedIn,
 };

@@ -2,6 +2,7 @@ import { useState, useEffect, createContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { categories } from "../api/axios";
 import { Spinner } from "react-bootstrap";
+import PrivateRoute from "../components/authentication/PrivateRoute";
 
 export const CategoriesContext = createContext();
 
@@ -31,7 +32,7 @@ export function CategoriesProvider({ children }) {
   }, [data]);
 
   return (
-    <>
+    <PrivateRoute>
       {!content ? (
         <CategoriesContext.Provider value={{ itemsCategories }}>
           {children}
@@ -39,6 +40,6 @@ export function CategoriesProvider({ children }) {
       ) : (
         content
       )}
-    </>
+    </PrivateRoute>
   );
 }

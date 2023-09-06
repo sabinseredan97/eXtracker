@@ -54,7 +54,7 @@ export default function DeleteAccount() {
     <div
       style={{
         backgroundImage: `url(${deleteBackground})`,
-        height: "100vh",
+        height: "93.9vh",
         width: "100%",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",

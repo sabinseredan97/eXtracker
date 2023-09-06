@@ -9,6 +9,7 @@ const {
   sendResetEmail,
   resetPwd,
   getUserData,
+  isLoggedIn,
 } = require("../controllers/users");
 const {
   verifyEmail,
@@ -49,5 +50,7 @@ router.put(
 );
 
 router.get("/data/:username", authenticateToken, getUserData);
+
+router.get("/logged-in", authenticateToken, isLoggedIn);
 
 module.exports = router;

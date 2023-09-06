@@ -35,3 +35,7 @@ export function getPeriosExp(startDate, endDate) {
     .get(`products/period-expenses/${startDate}/${endDate}`)
     .then((res) => res.data);
 }
+
+export function isLoggedIn() {
+  return axios.get("users/logged-in").then((res) => res.data);
+}

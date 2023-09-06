@@ -22,7 +22,7 @@ export default function NavBar() {
   return (
     <div className="sticky-top">
       {loggedIn && (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
           <Container>
             <Navbar.Brand as={Link} to="/">
               eXtracker
@@ -36,17 +36,17 @@ export default function NavBar() {
                     title={username}
                     menuVariant="dark"
                   >
-                    <NavDropdown.Item href="/profile/add-expenses">
+                    <NavDropdown.Item as={Link} to="/profile/add-expenses">
                       Add expenses
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/profile/expenses">
+                    <NavDropdown.Item as={Link} to="/profile/expenses">
                       My expenses
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/profile/expenses/graph">
+                    <NavDropdown.Item as={Link} to="/profile/expenses/graph">
                       Graph
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href={`/profile/${username}`}>
+                    <NavDropdown.Item as={Link} to={`/profile/${username}`}>
                       Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
