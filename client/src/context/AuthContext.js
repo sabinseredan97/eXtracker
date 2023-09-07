@@ -22,12 +22,8 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   async function logout() {
-    try {
-      axios.post("/users/logout", {});
-      setUser(null);
-    } catch (error) {
-      toast.error("An error occured");
-    }
+    axios.post("/users/logout", {});
+    setUser(null);
   }
 
   useEffect(() => {
