@@ -8,20 +8,17 @@ import defaultUserLogo from "../logo/defaultUserLogo.png";
 axios.defaults.withCredentials = true;
 
 export default function NavBar() {
-  const { loggedIn, setLoggedIn, username, setUsername } =
-    useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   let navigate = useNavigate();
 
-  async function logOut() {
-    await axios.post("users/logout", {});
-    setLoggedIn(false);
-    setUsername(null);
+  async function logOutUser() {
+    logout();
     navigate("/login");
   }
 
   return (
     <div className="sticky-top">
-      {loggedIn && (
+      {user && (
         <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
           <Container>
             <Navbar.Brand as={Link} to="/">
@@ -33,7 +30,7 @@ export default function NavBar() {
                 <Nav className="me-auto">
                   <NavDropdown
                     id="nav-dropdown-dark collasible-nav-dropdown"
-                    title={username}
+                    title={user}
                     menuVariant="dark"
                   >
                     <NavDropdown.Item as={Link} to="/profile/add-expenses">
@@ -46,11 +43,11 @@ export default function NavBar() {
                       Graph
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item as={Link} to={`/profile/${username}`}>
+                    <NavDropdown.Item as={Link} to={`/profile/${user}`}>
                       Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <Button variant="link" onClick={logOut}>
+                    <Button variant="link" onClick={logOutUser}>
                       Log out
                     </Button>
                   </NavDropdown>
@@ -59,7 +56,7 @@ export default function NavBar() {
                   <img
                     className="userAvatar"
                     src={defaultUserLogo}
-                    alt={username}
+                    alt={user}
                   />
                 </Nav.Item>
               </Navbar.Collapse>

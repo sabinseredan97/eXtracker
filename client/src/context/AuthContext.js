@@ -1,18 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { isLoggedIn } from "../api/axios";
-import secureLocalStorage from "react-secure-storage";
+import { toast } from "react-toastify";
+import axios from "axios";
 
-const INITIAL_STATE = {
-  loggedIn: JSON.parse(secureLocalStorage.getItem("loggedIn")) || false,
-  user: JSON.parse(secureLocalStorage.getItem("user")) || null,
-};
-
-export const AuthContext = createContext(INITIAL_STATE);
+export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(INITIAL_STATE.loggedIn);
-  const [username, setUsername] = useState(INITIAL_STATE.user);
+  const [user, setUser] = useState(null);
 
   const { data, isError } = useQuery({
     queryKey: ["auth"],
@@ -22,29 +17,30 @@ export const AuthContextProvider = ({ children }) => {
     cacheTime: Infinity,
   });
 
-  useEffect(() => {
-    function updateState() {
-      secureLocalStorage.setItem("loggedIn", JSON.stringify(loggedIn));
-      secureLocalStorage.setItem("user", JSON.stringify(username));
+  function login(username) {
+    setUser(username);
+  }
+
+  async function logout() {
+    try {
+      axios.post("/users/logout", {});
+      setUser(null);
+    } catch (error) {
+      toast.error("An error occured");
     }
-    updateState();
-  }, [username, loggedIn]);
+  }
 
   useEffect(() => {
     if (!isError) {
-      setUsername(data);
-      setLoggedIn(true);
-    } else {
-      setUsername(null);
-      setLoggedIn(false);
+      login(data);
     }
   }, [isError, data]);
 
-  return (
-    <AuthContext.Provider
-      value={{ loggedIn, setLoggedIn, username, setUsername }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = {
+    user,
+    login,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

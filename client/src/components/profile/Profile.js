@@ -8,11 +8,11 @@ import defaultUserLogo from "../../logo/defaultUserLogo.png";
 import appBackground from "../../images/app-background.jpg";
 
 export default function Profile() {
-  const { username } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["user-data"],
-    queryFn: () => getUserData(username),
+    queryFn: () => getUserData(user),
   });
 
   let content;
@@ -49,7 +49,7 @@ export default function Profile() {
                 src={defaultUserLogo}
                 alt="user"
               />{" "}
-              {username}
+              {user}
             </Card.Title>
           </Card.Body>
           <ListGroup className="list-group-flush">

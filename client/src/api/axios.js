@@ -10,10 +10,6 @@ export function getEmailVrfTkn(id, verifyTkn) {
   return axios.get(`users/verify/${id}/${verifyTkn}`).then((res) => res.data);
 }
 
-export function logoutUser() {
-  return axios.post("users/logout").then((res) => res.data);
-}
-
 export function categories() {
   return axios.get("products/categories").then((res) => res.data);
 }

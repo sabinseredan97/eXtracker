@@ -11,7 +11,7 @@ import ShowHidePwd from "./ShowHidePwd";
 import "./regForm.css";
 
 export default function Registration() {
-  const { loggedIn } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
   const [confPwdShow, setConfPwdShow] = useState(false);
   const [emailVerifyMsg, setEmailVerifyMsg] = useState("");
@@ -48,7 +48,7 @@ export default function Registration() {
 
   return (
     <div className="regContainer">
-      {!loggedIn ? (
+      {!user ? (
         <div className="row d-flex justify-content-center">
           <div className="col-md-4">
             <Form onSubmit={handleSubmit(onSubmit)} className="regForm">

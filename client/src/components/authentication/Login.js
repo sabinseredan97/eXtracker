@@ -11,7 +11,7 @@ import ShowHidePwd from "./ShowHidePwd";
 import "./login.css";
 
 export default function Login() {
-  const { loggedIn, setLoggedIn, setUsername } = useContext(AuthContext);
+  const { user, login } = useContext(AuthContext);
   const [passwordShown, setPasswordShown] = useState(false);
   const [resendLink, setResendLink] = useState(false);
   const [disableTimer, setDisableTimer] = useState(false);
@@ -51,8 +51,7 @@ export default function Login() {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.accessToken}`;
-        setLoggedIn(true);
-        setUsername(response.data.username);
+        login(response.data.username);
         toast.success(response.data.message);
       }
     } catch (error) {
@@ -74,7 +73,7 @@ export default function Login() {
 
   return (
     <div className="loginContainer">
-      {!loggedIn ? (
+      {!user ? (
         <div className="row d-flex justify-content-center">
           <div className="col-md-4">
             <Form onSubmit={handleSubmit(onSubmit)} className="loginForm">
