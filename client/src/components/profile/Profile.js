@@ -25,7 +25,7 @@ export default function Profile() {
       </div>
     );
   } else if (isError) {
-    content = <p>{error.message}</p>;
+    content = <p className="text-white">{error.message}</p>;
   }
 
   return (

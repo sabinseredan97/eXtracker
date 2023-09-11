@@ -45,31 +45,31 @@ function App() {
         <Route
           path="/profile/add-expenses"
           element={
-            <CategoriesProvider>
-              <PrivateRoute>
+            <PrivateRoute>
+              <CategoriesProvider>
                 <AddProduct />
-              </PrivateRoute>
-            </CategoriesProvider>
+              </CategoriesProvider>
+            </PrivateRoute>
           }
         />
         <Route
           path="/profile/expenses"
           element={
-            <CategoriesProvider>
-              <PrivateRoute>
+            <PrivateRoute>
+              <CategoriesProvider>
                 <ShowProducts />
-              </PrivateRoute>
-            </CategoriesProvider>
+              </CategoriesProvider>
+            </PrivateRoute>
           }
         />
         <Route
           path="/profile/expenses/graph"
           element={
-            <CategoriesProvider>
-              <PrivateRoute>
+            <PrivateRoute>
+              <CategoriesProvider>
                 <LineChart />
-              </PrivateRoute>
-            </CategoriesProvider>
+              </CategoriesProvider>
+            </PrivateRoute>
           }
         />
         <Route path="/login" element={<Login />} />

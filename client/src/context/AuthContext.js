@@ -12,8 +12,8 @@ export const AuthContextProvider = ({ children }) => {
     queryKey: ["auth"],
     queryFn: () => isLoggedIn(),
     retry: false,
-    staleTime: Infinity,
-    cacheTime: Infinity,
+    /* staleTime: Infinity,
+    cacheTime: Infinity, */
   });
 
   function login(username) {
@@ -28,6 +28,8 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     if (!isError) {
       login(data);
+    } else {
+      logout();
     }
   }, [isError, data]);
 

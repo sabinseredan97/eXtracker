@@ -200,14 +200,18 @@ async function resetPwd(req, res) {
 
 async function getUserData(req, res) {
   const { username } = req.params;
-  const user = await users.findOne({ where: { username: username } });
-  return res.status(200).send({
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    verified: user.verified,
-    createdAt: user.createdAt,
-  });
+  try {
+    const user = await users.findOne({ where: { username: username } });
+    return res.status(200).send({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      verified: user.verified,
+      createdAt: user.createdAt,
+    });
+  } catch (error) {
+    res.sendStatus(404);
+  }
 }
 
 async function isLoggedIn(req, res) {
