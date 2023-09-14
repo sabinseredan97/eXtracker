@@ -26,7 +26,6 @@ app.use(express.static(path.join(__dirname, "public")));
     origin: "https://e-xtracker.vercel.app/",
   })
 ); */
-
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
