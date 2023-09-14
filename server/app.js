@@ -20,7 +20,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: "https://e-xtracker-4tt677rjx-sabinseredan97.vercel.app",
+  })
+);
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
