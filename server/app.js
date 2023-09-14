@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
     credentials: true,
-    origin: "https://e-xtracker-4tt677rjx-sabinseredan97.vercel.app",
+    origin: "https://e-xtracker.vercel.app/",
   })
 );
 
