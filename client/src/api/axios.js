@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3001/api/";
+axios.defaults.baseURL =
+  "https://e-xtracker-4tt677rjx-sabinseredan97.vercel.app/";
 
 export function getUserData(username) {
   return axios.get(`users/data/${username}`).then((res) => res.data);
