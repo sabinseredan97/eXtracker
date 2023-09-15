@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const cors = require("cors");
+//const cors = require("cors");
 require("dotenv").config("/.env");
 
 var indexRouter = require("./routes/index");
@@ -21,12 +21,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
+/* app.use(
   cors({
     credentials: true,
     origin: "https://extracker-vt4fe.ondigitalocean.app/",
   })
-);
+); */
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
