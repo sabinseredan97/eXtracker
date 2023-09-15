@@ -5,6 +5,7 @@ const { resultsValidator } = require("../middlewares/userDataValidation");
 const { createTokens } = require("../middlewares/createToken");
 const { Op } = require("sequelize");
 const { sendUserResetEmail } = require("../middlewares/sendUserVerifyEmail");
+require("dotenv").config("../.env");
 
 async function register(req, res) {
   const errors = resultsValidator(req);

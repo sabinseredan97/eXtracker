@@ -1,5 +1,6 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true;
 axios.defaults.baseURL =
   "https://extracker-server-yx3uf.ondigitalocean.app/api/";
 
