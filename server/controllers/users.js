@@ -64,7 +64,8 @@ async function login(req, res) {
     const day = 86400000;
     res.cookie("access-token", accessToken, {
       maxAge: day,
-      httpOnly: true,
+      secure: true,
+      httpOnly: false,
       sameSite: "None",
       domain: "https://e-xtracker.vercel.app/login",
     });
