@@ -65,6 +65,7 @@ async function login(req, res) {
     res.cookie("access-token", accessToken, {
       maxAge: day,
       httpOnly: true,
+      sameSite: false,
     });
     return res.status(200).send({
       message: "Logged in",
