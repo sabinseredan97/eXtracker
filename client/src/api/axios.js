@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://e-xtracker-backend.vercel.app/";
+axios.defaults.baseURL = "https://extracker-server-6w6oh.ondigitalocean.app/";
 
 export function getUserData(username) {
   return axios.get(`users/data/${username}`).then((res) => res.data);
