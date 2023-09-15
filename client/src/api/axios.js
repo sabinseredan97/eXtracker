@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "https://extracker-server-b77ui.ondigitalocean.app/";
+axios.defaults.baseURL = "https://extracker-server-yx3uf.ondigitalocean.app/";
 
 export function getUserData(username) {
   return axios.get(`users/data/${username}`).then((res) => res.data);

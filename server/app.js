@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
     credentials: true,
-    origin: "https://extracker-hc58z.ondigitalocean.app",
+    origin: "https://extracker-vt4fe.ondigitalocean.app/",
   })
 );
 
