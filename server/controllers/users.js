@@ -65,7 +65,7 @@ async function login(req, res) {
     res.cookie("access-token", accessToken, {
       maxAge: day,
       secure: true,
-      httpOnly: false,
+      //httpOnly: false,
       sameSite: "None",
       //domain: "https://e-xtracker.vercel.app",
     });
@@ -84,7 +84,6 @@ function logoutUser(req, res) {
     res.cookie("access-token", "", {
       maxAge: 1,
       secure: true,
-      httpOnly: false,
       sameSite: "None",
     });
   } catch (err) {
