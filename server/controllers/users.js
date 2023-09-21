@@ -67,7 +67,7 @@ async function login(req, res) {
       //secure: true,
       httpOnly: true,
       sameSite: "None",
-      domain: "https://e-xtracker.vercel.app",
+      //domain: "https://e-xtracker.vercel.app",
     });
     return res.status(200).send({
       message: "Logged in",
