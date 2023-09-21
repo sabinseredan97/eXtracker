@@ -37,9 +37,18 @@ export default function Login() {
 
   async function onSubmit(data) {
     try {
-      const response = await axios.post("users/login", data, {
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        "users/login",
+        data,
+        {
+          withCredentials: true,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 201) {
         setDisabled(true);
         toast.warn("Your account is not verified yet!");
