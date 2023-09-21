@@ -81,7 +81,12 @@ async function login(req, res) {
 
 function logoutUser(req, res) {
   try {
-    res.cookie("access-token", "", { maxAge: 1 });
+    res.cookie("access-token", "", {
+      maxAge: 1,
+      secure: true,
+      httpOnly: false,
+      sameSite: "None",
+    });
   } catch (err) {
     return res.status(404).send(err);
   }
