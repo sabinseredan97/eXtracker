@@ -65,9 +65,9 @@ async function login(req, res) {
     res.cookie("access-token", accessToken, {
       maxAge: day,
       secure: true,
-      //httpOnly: true,
+      httpOnly: false,
       sameSite: "None",
-      domain: "https://e-xtracker.vercel.app",
+      //domain: "https://e-xtracker.vercel.app",
     });
     return res.status(200).send({
       message: "Logged in",
