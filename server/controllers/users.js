@@ -64,10 +64,10 @@ async function login(req, res) {
     const day = 86400000;
     res.cookie("access-token", accessToken, {
       maxAge: day,
-      //secure: true,
-      httpOnly: true,
+      secure: true,
+      //httpOnly: true,
       sameSite: "None",
-      //domain: "https://e-xtracker.vercel.app",
+      domain: "https://e-xtracker.vercel.app",
     });
     return res.status(200).send({
       message: "Logged in",
