@@ -19,7 +19,7 @@ export default function AddProduct() {
       .number()
       .typeError("Price range is from 0.01 to 9999999.99")
       .min(0.01)
-      .max(9999999.99)
+      .max(99999.99)
       .required("Price is rquired"),
     currency: yup.string().required("Category is required!"),
   });
