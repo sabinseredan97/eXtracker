@@ -1,9 +1,8 @@
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL =
-  "https://extracker-server-g9tff.ondigitalocean.app/api/";
-//"https://extracker-server.onrender.com/api/";
+axios.defaults.baseURL = "https://extracker-server.onrender.com/api/";
+//"https://extracker-server-g9tff.ondigitalocean.app/api/";
 
 export function getUserData(username) {
   return axios.get(`users/data/${username}`).then((res) => res.data);
