@@ -17,6 +17,7 @@ export default function Login() {
   const [disableTimer, setDisableTimer] = useState(false);
   const [timer, setTimer] = useState(0);
   const [disabled, setDisabled] = useState(false);
+  const [verified, setVerified] = useState(true);
 
   let navigate = useNavigate();
 
@@ -37,6 +38,7 @@ export default function Login() {
 
   async function onSubmit(data) {
     try {
+      setDisabled(true);
       const response = await axios.post(
         "users/login",
         data,
@@ -50,7 +52,7 @@ export default function Login() {
         }
       );
       if (response.status === 201) {
-        setDisabled(true);
+        setVerified(false);
         toast.warn("Your account is not verified yet!");
         toast.success(response.data.message);
         setResendLink(true);
@@ -65,6 +67,8 @@ export default function Login() {
       }
     } catch (error) {
       toast.error(error.response.data.error);
+    } finally {
+      setDisabled(false);
     }
   }
 
@@ -114,14 +118,19 @@ export default function Login() {
                 </div>
                 <p className="text-danger">{errors.password?.message}</p>
               </Form.Group>
-              <Button
-                variant="primary"
-                className="btn-lg"
-                type="submit"
-                disabled={disabled}
-              >
-                Log in
-              </Button>
+              <p style={{ color: "rgb(255,140,0)" }}>
+                Due to server inactivity it might take a few seconds to login
+              </p>
+              {verified && (
+                <Button
+                  variant="primary"
+                  className="btn-lg"
+                  type="submit"
+                  disabled={disabled}
+                >
+                  Log in
+                </Button>
+              )}
               {resendLink && (
                 <Button variant="link" type="submit" disabled={disableTimer}>
                   {disableTimer ? `Resend link in ${timer}s` : "Resend link"}

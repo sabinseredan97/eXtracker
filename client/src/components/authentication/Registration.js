@@ -36,14 +36,15 @@ export default function Registration() {
   } = useForm({ resolver: yupResolver(schema) });
 
   async function onSubmit(data) {
-    isDataSending.current = true;
     try {
+      isDataSending.current = true;
       const response = await axios.post("users/register", data);
       setEmailVerifyMsg(response.data.message);
     } catch (error) {
       toast.error(error.response.data.error);
+    } finally {
+      isDataSending.current = false;
     }
-    isDataSending.current = false;
   }
 
   return (
@@ -110,6 +111,9 @@ export default function Registration() {
               {emailVerifyMsg && (
                 <p className="text-success">{emailVerifyMsg}</p>
               )}
+              <p style={{ color: "rgb(255,140,0)" }}>
+                Due to server inactivity it might take a few seconds to register
+              </p>
               <Button
                 variant="primary"
                 type="submit"
