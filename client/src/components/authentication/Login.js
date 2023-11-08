@@ -8,6 +8,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Form, Button } from "react-bootstrap";
 import ShowHidePwd from "./ShowHidePwd";
+import { Spinner } from "react-bootstrap/";
 import "./login.css";
 
 export default function Login() {
@@ -128,7 +129,14 @@ export default function Login() {
                   type="submit"
                   disabled={disabled}
                 >
-                  Log in
+                  {disabled ? (
+                    <>
+                      <Spinner animation="border" variant="light" />{" "}
+                      <p> Login</p>
+                    </>
+                  ) : (
+                    "Login"
+                  )}
                 </Button>
               )}
               {resendLink && (

@@ -8,6 +8,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Form, Button } from "react-bootstrap";
 import ShowHidePwd from "./ShowHidePwd";
+import { Spinner } from "react-bootstrap/";
 import "./regForm.css";
 
 export default function Registration() {
@@ -120,7 +121,14 @@ export default function Registration() {
                 className="btn-lg"
                 disabled={isDataSending.current}
               >
-                Register
+                {isDataSending.current ? (
+                  <>
+                    <Spinner animation="border" variant="light" />{" "}
+                    <p> Register</p>
+                  </>
+                ) : (
+                  "Register"
+                )}
               </Button>
               <span>
                 Already have an account ?
